@@ -73,7 +73,61 @@ public class Main {
 				}
 
 				lastArticleId++;
-			} else if (cmd.equals("article list")) {
+			} else if (cmd.startsWith("article modify ")) {
+				int id = Integer.parseInt(cmd.split(" ")[2]);
+				String title;
+				String body;
+
+				System.out.printf("== %d번 게시글 수정 ==\n", id);
+				System.out.printf("새 제목 : ");
+				title = scanner.nextLine();
+				System.out.printf("새 내용 : ");
+				body = scanner.nextLine();
+
+				Connection conn = null;
+				PreparedStatement pstat = null;
+
+				try {
+					Class.forName("com.mysql.jdbc.Driver");
+					String url = "jdbc:mysql://127.0.0.1:3306/text_board?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
+
+					conn = DriverManager.getConnection(url, "sbsst", "sbs123414");
+
+					String sql = "UPDATE article";
+					sql += " SET updateDate = NOW()";
+					sql += ", title = \"" + title + "\"";
+					sql += ", `body` = \"" + body + "\"";
+					sql += " WHERE id = " + id;
+
+					pstat = conn.prepareStatement(sql);
+					pstat.executeUpdate();
+
+				} catch (ClassNotFoundException e) {
+					System.out.println("드라이버 로딩 실패");
+				} catch (SQLException e) {
+					System.out.println("에러: " + e);
+				} finally {
+					try {
+						if (conn != null && !conn.isClosed()) {
+							conn.close();
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+
+					try {
+						if (pstat != null && !pstat.isClosed()) {
+							pstat.close();
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+
+				}
+
+				System.out.printf("%d번 게시글이 수정되었습니다.\n", id);
+			}
+			else if (cmd.equals("article list")) {
 				System.out.println("== 게시물 리스트 ==");
 
 				// JDBC select 를 통해서 articles 의 내용을 채운다.
@@ -152,5 +206,7 @@ public class Main {
 				break;
 			}
 		}
+
+		scanner.close();
 	}
 }
