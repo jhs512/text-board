@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class Article {
 	public int id;
-	String regDate;
-	String updateDate;
+	public String regDate;
+	public String updateDate;
 	public String title;
 	public String body;
 

@@ -1,23 +1,9 @@
 package com.sbs.example.textboard.controller;
 
-import java.sql.Connection;
-import java.util.Scanner;
-
 import com.sbs.example.textboard.util.DBUtil;
 import com.sbs.example.textboard.util.SecSql;
 
-public class MemberController {
-	private Connection conn;
-	private Scanner scanner;
-	
-	public void setConn(Connection conn) {
-		this.conn = conn;
-	}
-
-	public void setScanner(Scanner scanner) {
-		this.scanner = scanner;
-	}
-	
+public class MemberController extends Controller {
 	public void join(String cmd) {
 		String loginId;
 		String loginPw;
