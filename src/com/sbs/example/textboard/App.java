@@ -62,14 +62,9 @@ public class App {
 
 	private int action(Connection conn, Scanner scanner, String cmd) {
 
-		MemberController memberController = new MemberController();
-		memberController.setConn(conn);
-		memberController.setScanner(scanner);
-
-		ArticleController articleController = new ArticleController();
-		articleController.setConn(conn);
-		articleController.setScanner(scanner);
-
+		MemberController memberController = new MemberController(conn, scanner);
+		ArticleController articleController = new ArticleController(conn, scanner);
+		
 		if (cmd.equals("member join")) {
 			memberController.join(cmd);
 		} else if (cmd.equals("article add")) {
