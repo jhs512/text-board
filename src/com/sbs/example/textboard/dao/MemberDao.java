@@ -1,13 +1,15 @@
 package com.sbs.example.textboard.dao;
 
 import java.sql.Connection;
+import java.util.Map;
 
+import com.sbs.example.textboard.dto.Member;
 import com.sbs.example.textboard.util.DBUtil;
 import com.sbs.example.textboard.util.SecSql;
 
 public class MemberDao {
 	private Connection conn;
-	
+
 	public MemberDao(Connection conn) {
 		this.conn = conn;
 	}
@@ -33,8 +35,24 @@ public class MemberDao {
 		sql.append(", `name` = ?", name);
 
 		int id = DBUtil.insert(conn, sql);
-		
+
 		return id;
+	}
+
+	public Member getMemberByLoginId(String loginId) {
+		SecSql sql = new SecSql();
+
+		sql.append("SELECT *");
+		sql.append("FROM member");
+		sql.append("WHERE loginId = ?", loginId);
+
+		Map<String, Object> memberMap = DBUtil.selectRow(conn, sql);
+
+		if (memberMap.isEmpty()) {
+			return null;
+		}
+
+		return new Member(memberMap);
 	}
 
 }

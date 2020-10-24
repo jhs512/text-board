@@ -1,15 +1,11 @@
 package com.sbs.example.textboard.controller;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
-import com.sbs.example.textboard.Article;
+import com.sbs.example.textboard.dto.Article;
 import com.sbs.example.textboard.service.ArticleService;
-import com.sbs.example.textboard.util.DBUtil;
-import com.sbs.example.textboard.util.SecSql;
 
 public class ArticleController extends Controller {
 

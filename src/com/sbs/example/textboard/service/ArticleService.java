@@ -3,8 +3,8 @@ package com.sbs.example.textboard.service;
 import java.sql.Connection;
 import java.util.List;
 
-import com.sbs.example.textboard.Article;
 import com.sbs.example.textboard.dao.ArticleDao;
+import com.sbs.example.textboard.dto.Article;
 
 public class ArticleService {
 	private ArticleDao articleDao;

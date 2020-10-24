@@ -1,4 +1,4 @@
-package com.sbs.example.textboard;
+package com.sbs.example.textboard.dto;
 
 import java.util.Map;
 

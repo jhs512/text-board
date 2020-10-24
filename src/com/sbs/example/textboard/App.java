@@ -64,9 +64,11 @@ public class App {
 
 		MemberController memberController = new MemberController(conn, scanner);
 		ArticleController articleController = new ArticleController(conn, scanner);
-		
+
 		if (cmd.equals("member join")) {
 			memberController.join(cmd);
+		} else if (cmd.equals("member login")) {
+			memberController.login(cmd);
 		} else if (cmd.equals("article add")) {
 			articleController.add(cmd);
 		} else if (cmd.startsWith("article delete ")) {
