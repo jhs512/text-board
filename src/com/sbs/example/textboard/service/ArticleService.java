@@ -13,8 +13,8 @@ public class ArticleService {
 		articleDao = Container.articleDao;
 	}
 
-	public int add(String title, String body) {
-		return articleDao.add(title, body);
+	public int add(int memberid, String title, String body) {
+		return articleDao.add(memberid, title, body);
 	}
 
 	public boolean articleExists(int id) {
