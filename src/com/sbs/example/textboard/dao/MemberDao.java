@@ -1,19 +1,13 @@
 package com.sbs.example.textboard.dao;
 
-import java.sql.Connection;
 import java.util.Map;
 
+import com.sbs.example.textboard.Container;
 import com.sbs.example.textboard.dto.Member;
 import com.sbs.example.textboard.util.DBUtil;
 import com.sbs.example.textboard.util.SecSql;
 
 public class MemberDao {
-	private Connection conn;
-
-	public MemberDao(Connection conn) {
-		this.conn = conn;
-	}
-
 	public boolean isLoginIdDup(String loginId) {
 		SecSql sql = new SecSql();
 
@@ -21,7 +15,7 @@ public class MemberDao {
 		sql.append("FROM member");
 		sql.append("WHERE loginId = ?", loginId);
 
-		return DBUtil.selectRowBooleanValue(conn, sql);
+		return DBUtil.selectRowBooleanValue(Container.conn, sql);
 	}
 
 	public int join(String loginId, String loginPw, String name) {
@@ -34,7 +28,7 @@ public class MemberDao {
 		sql.append(", loginPw = ?", loginPw);
 		sql.append(", `name` = ?", name);
 
-		int id = DBUtil.insert(conn, sql);
+		int id = DBUtil.insert(Container.conn, sql);
 
 		return id;
 	}
@@ -46,7 +40,7 @@ public class MemberDao {
 		sql.append("FROM member");
 		sql.append("WHERE loginId = ?", loginId);
 
-		Map<String, Object> memberMap = DBUtil.selectRow(conn, sql);
+		Map<String, Object> memberMap = DBUtil.selectRow(Container.conn, sql);
 
 		if (memberMap.isEmpty()) {
 			return null;

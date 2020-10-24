@@ -3,23 +3,20 @@ package com.sbs.example.textboard;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import com.sbs.example.textboard.controller.ArticleController;
 import com.sbs.example.textboard.controller.MemberController;
-import com.sbs.example.textboard.util.DBUtil;
-import com.sbs.example.textboard.util.SecSql;
 
 public class App {
 	public void run() {
-		Scanner scanner = new Scanner(System.in);
+		Container.scanner = new Scanner(System.in);
+
+		Container.init();
 
 		while (true) {
 			System.out.printf("명령어) ");
-			String cmd = scanner.nextLine();
+			String cmd = Container.scanner.nextLine();
 			cmd = cmd.trim();
 
 			// DB 연결 시작
@@ -36,7 +33,9 @@ public class App {
 			try {
 				conn = DriverManager.getConnection(url, "sbsst", "sbs123414");
 
-				int actionResult = action(conn, scanner, cmd);
+				Container.conn = conn;
+
+				int actionResult = action(cmd);
 
 				if (actionResult == -1) {
 					break;
@@ -57,13 +56,13 @@ public class App {
 			// DB 연결 끝
 		}
 
-		scanner.close();
+		Container.scanner.close();
 	}
 
-	private int action(Connection conn, Scanner scanner, String cmd) {
+	private int action(String cmd) {
 
-		MemberController memberController = new MemberController(conn, scanner);
-		ArticleController articleController = new ArticleController(conn, scanner);
+		MemberController memberController = new MemberController();
+		ArticleController articleController = new ArticleController();
 
 		if (cmd.equals("member join")) {
 			memberController.join(cmd);

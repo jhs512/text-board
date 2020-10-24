@@ -1,16 +1,16 @@
 package com.sbs.example.textboard.service;
 
-import java.sql.Connection;
 import java.util.List;
 
+import com.sbs.example.textboard.Container;
 import com.sbs.example.textboard.dao.ArticleDao;
 import com.sbs.example.textboard.dto.Article;
 
 public class ArticleService {
 	private ArticleDao articleDao;
 
-	public ArticleService(Connection conn) {
-		articleDao = new ArticleDao(conn);
+	public ArticleService() {
+		articleDao = Container.articleDao;
 	}
 
 	public int add(String title, String body) {

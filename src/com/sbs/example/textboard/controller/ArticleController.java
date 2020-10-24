@@ -1,9 +1,8 @@
 package com.sbs.example.textboard.controller;
 
-import java.sql.Connection;
 import java.util.List;
-import java.util.Scanner;
 
+import com.sbs.example.textboard.Container;
 import com.sbs.example.textboard.dto.Article;
 import com.sbs.example.textboard.service.ArticleService;
 
@@ -11,9 +10,8 @@ public class ArticleController extends Controller {
 
 	private ArticleService articleService;
 
-	public ArticleController(Connection conn, Scanner scanner) {
-		super(scanner);
-		articleService = new ArticleService(conn);
+	public ArticleController() {
+		articleService = Container.articleService;
 	}
 
 	public void add(String cmd) {
@@ -32,6 +30,7 @@ public class ArticleController extends Controller {
 	}
 
 	public void delete(String cmd) {
+		
 		int id = Integer.parseInt(cmd.split(" ")[2]);
 
 		System.out.printf("== %d번 게시글 삭제 ==\n", id);

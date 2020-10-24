@@ -1,17 +1,14 @@
 package com.sbs.example.textboard.controller;
 
-import java.sql.Connection;
-import java.util.Scanner;
-
+import com.sbs.example.textboard.Container;
 import com.sbs.example.textboard.dto.Member;
 import com.sbs.example.textboard.service.MemberService;
 
 public class MemberController extends Controller {
 	private MemberService memberService;
 
-	public MemberController(Connection conn, Scanner scanner) {
-		super(scanner);
-		memberService = new MemberService(conn);
+	public MemberController() {
+		memberService = Container.memberService;
 	}
 
 	public void join(String cmd) {
