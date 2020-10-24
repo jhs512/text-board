@@ -66,9 +66,10 @@ public class App {
 
 		if (cmd.equals("member whoami")) {
 			memberController.whoami(cmd);
-		}
-		else if (cmd.equals("member join")) {
+		} else if (cmd.equals("member join")) {
 			memberController.join(cmd);
+		} else if (cmd.equals("member logout")) {
+			memberController.logout(cmd);
 		} else if (cmd.equals("member login")) {
 			memberController.login(cmd);
 		} else if (cmd.equals("article add")) {
