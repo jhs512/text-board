@@ -64,7 +64,10 @@ public class App {
 		MemberController memberController = new MemberController();
 		ArticleController articleController = new ArticleController();
 
-		if (cmd.equals("member join")) {
+		if (cmd.equals("member whoami")) {
+			memberController.whoami(cmd);
+		}
+		else if (cmd.equals("member join")) {
 			memberController.join(cmd);
 		} else if (cmd.equals("member login")) {
 			memberController.login(cmd);

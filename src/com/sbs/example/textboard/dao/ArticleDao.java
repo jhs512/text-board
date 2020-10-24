@@ -47,11 +47,11 @@ public class ArticleDao {
 		sql.append("FROM article");
 		sql.append("WHERE id = ?", id);
 		Map<String, Object> articleMap = DBUtil.selectRow(Container.conn, sql);
-		
-		if ( articleMap.isEmpty() ) {
+
+		if (articleMap.isEmpty()) {
 			return null;
 		}
-		
+
 		return new Article(articleMap);
 	}
 
@@ -73,15 +73,15 @@ public class ArticleDao {
 		sql.append("SELECT *");
 		sql.append("FROM article");
 		sql.append("ORDER BY id DESC");
-		
+
 		List<Map<String, Object>> articlesListMap = DBUtil.selectRows(Container.conn, sql);
 
 		List<Article> articles = new ArrayList<>();
-		
+
 		for (Map<String, Object> articleMap : articlesListMap) {
 			articles.add(new Article(articleMap));
 		}
-		
+
 		return articles;
 	}
 
