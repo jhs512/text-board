@@ -15,11 +15,11 @@ public class ArticleController extends Controller {
 	}
 
 	public void add(String cmd) {
-		if ( Container.session.isLogined() == false ) {
+		if (Container.session.isLogined() == false) {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
-		
+
 		String title;
 		String body;
 		int memberid = Container.session.loginedMemberId;
@@ -36,7 +36,7 @@ public class ArticleController extends Controller {
 	}
 
 	public void delete(String cmd) {
-		if ( Container.session.isLogined() == false ) {
+		if (Container.session.isLogined() == false) {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
@@ -45,14 +45,14 @@ public class ArticleController extends Controller {
 
 		System.out.printf("== %d번 게시글 삭제 ==\n", id);
 
-		Article article = articleService.getArticleById(id);
+		Article article = articleService.getForPrintArticleById(id);
 
 		if (article == null) {
 			System.out.printf("%d번 게시글은 존재하지 않습니다.\n", id);
 			return;
 		}
-		
-		if ( article.memberId != Container.session.loginedMemberId ) {
+
+		if (article.memberId != Container.session.loginedMemberId) {
 			System.out.printf("권한이 없습니다.\n");
 			return;
 		}
@@ -68,7 +68,7 @@ public class ArticleController extends Controller {
 		System.out.printf("== %d번 게시글 상세보기 ==\n", id);
 
 		articleService.increaseHit(id);
-		Article article = articleService.getArticleById(id);
+		Article article = articleService.getForPrintArticleById(id);
 
 		if (article == null) {
 			System.out.printf("%d번 게시글은 존재하지 않습니다.\n", id);
@@ -85,25 +85,25 @@ public class ArticleController extends Controller {
 	}
 
 	public void modify(String cmd) {
-		if ( Container.session.isLogined() == false ) {
+		if (Container.session.isLogined() == false) {
 			System.out.println("로그인 후 이용해주세요.");
 			return;
 		}
-		
+
 		int id = Integer.parseInt(cmd.split(" ")[2]);
-		
-		Article article = articleService.getArticleById(id);
-		
-		if ( article == null ) {
+
+		Article article = articleService.getForPrintArticleById(id);
+
+		if (article == null) {
 			System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
 			return;
 		}
-		
-		if ( article.memberId != Container.session.loginedMemberId ) {
+
+		if (article.memberId != Container.session.loginedMemberId) {
 			System.out.printf("권한이 없습니다.\n");
 			return;
 		}
-		
+
 		String title;
 		String body;
 
@@ -121,7 +121,25 @@ public class ArticleController extends Controller {
 	public void showList(String cmd) {
 		System.out.println("== 게시물 리스트 ==");
 
-		List<Article> articles = articleService.getArticles();
+		String[] cmdBits = cmd.split(" ");
+
+		int page = 1;
+		String searchKeyword = "";
+
+		if (cmdBits.length >= 3) {
+			page = Integer.parseInt(cmdBits[2]);
+		}
+
+		if (cmdBits.length >= 4) {
+			searchKeyword = cmdBits[3];
+		}
+
+		int itemsInAPage = 10;
+		
+		// 임시
+		itemsInAPage = 5;
+		
+		List<Article> articles = articleService.getForPrintArticles(page, itemsInAPage, searchKeyword);
 
 		if (articles.size() == 0) {
 			System.out.println("게시물이 존재하지 않습니다.");

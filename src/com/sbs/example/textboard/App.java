@@ -80,7 +80,7 @@ public class App {
 			articleController.showDetail(cmd);
 		} else if (cmd.startsWith("article modify ")) {
 			articleController.modify(cmd);
-		} else if (cmd.equals("article list")) {
+		} else if (cmd.startsWith("article list")) {
 			articleController.showList(cmd);
 		} else if (cmd.equals("system exit")) {
 			System.out.println("== 프로그램 종료 ==");
